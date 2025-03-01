@@ -1,6 +1,8 @@
 # DLW-Backend
 
-**DLW-Backend** is the FastAPI backend for the DLW project. It uses **GPT‑4o** to analyze food images and generate personalized food recommendations based on user nutritional intake and profiles. Although the project interacts with a React frontend (available separately), this repository focuses mainly on the backend functionality.
+**DLW-Backend** is the FastAPI backend for the **DLW project**. It uses **GPT‑4o** to analyze food images and generate personalized food recommendations based on user nutritional intake and profiles. Although the project interacts with a React frontend (available separately), this repository focuses mainly on the backend functionality.
+
+A key differentiator of DLW-Backend is its focus on the **local Singaporean context**. Unlike many existing applications, DLW-Backend **incorporates local food options, cultural dietary preferences, and region-specific nutritional guidelines**, addressing a market gap in food recommendation apps.
 
 ---
 
@@ -10,10 +12,18 @@ The backend performs two primary functions:
 
 ### **Image Analysis:**
 - Processes food images to identify the dish and extract nutritional information using **GPT‑4o**.
+- Recognizes **local Singaporean dishes**, ensuring culturally relevant nutritional insights.
 
 ### **Personalized Recommendations:**
 - Generates tailored recommendations based on the user's daily nutritional totals and profile details.
 - Enforces a **default meal schedule** (breakfast, lunch, dinner, or supper) based on the current time.
+- Considers **user-specific factors**, including:
+  - **Height, age, and weight**.
+  - **Automatic BMR calculation**.
+  - **Daily energy expenditure estimation** (based on step count and activity level).
+  - **Target calorie deficit** (user-selectable, constrained to healthy weight loss options).
+  - **Medical conditions** (e.g., high cholesterol, dietary restrictions).
+- Adapts recommendations to **Singaporean dietary habits**, ensuring they align with local cuisine and availability.
 
 Both functions use **GPT‑4o** and require an **OpenAI API key** to function.
 
@@ -93,6 +103,10 @@ This command starts the server in **development mode** with hot reloading enable
 - Although this repository focuses on the backend, the React frontend (which interacts with this backend) is available at:  
   **[DLW-Frontend](https://github.com/jonechong/dlw-frontend)**.
 
+### **Singapore-Specific Features:**
+- **Recognizes and provides nutritional analysis for local Singaporean dishes**.
+- **Recommends meals based on common Singaporean dietary patterns**.
+- **Considers local food availability and cultural eating habits in its recommendations**.
+
 ### **Starting the Server:**
 - Use the command `uvicorn app.main:app --reload` to run the backend in development mode.
-
