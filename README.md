@@ -1,124 +1,85 @@
-# Food Recommendation App
+# DLW Backend
 
-This project is a full-stack application that uses a **React frontend** and a **FastAPI backend** to analyze food images, retrieve nutritional information using GPT‑4o, and generate personalized food recommendations based on user profiles and daily food intake.
+This repository contains the backend code for the Food Recommendation App. The backend is built with [FastAPI](https://fastapi.tiangolo.com/) and leverages GPT‑4o to perform two primary functions:
 
----
+1. **Food Image Analysis:**  
+   Analyzes food images to extract dish identification and nutritional information.
 
-## Overview
+2. **Personalized Recommendations:**  
+   Generates personalized food recommendations based on the user's daily nutritional totals and profile.
 
-### Frontend:
-- Built with **React** and **Material-UI**.
-- Allows users to add food items (**via image upload or manual input**).
-- Displays nutritional totals and **shows personalized recommendations**.
+This backend is designed to work with a React frontend, which is maintained in a separate repository ([DLW Frontend](https://github.com/jonechong/dlw-frontend)). For this project, both the backend and frontend use default ports:
+- FastAPI backend runs on port **8000**.
+- React frontend runs on port **3000**.
 
-### Backend:
-- Developed with **FastAPI**.
-- Uses **GPT‑4o** for two main functions:
-  1. **Analyzing food images** to extract dish identification and nutritional information.
-  2. **Generating personalized recommendations** based on the user's daily food totals and profile.
+## Features
 
-### Environment:
-- The React app runs on **port 3000**.
-- The FastAPI backend runs on **port 8000**.
-- These defaults simplify setup and ensure quick deployment.
-
----
+- **Image Analysis:**  
+  Uses GPT‑4o to process an image and return a JSON object containing dish identification and nutrition details.
+  
+- **Personalized Recommendations:**  
+  Based on the user's current nutritional totals and profile, returns recommendations tailored to common local Singaporean dishes.  
+  - If the recommendation process fails, a placeholder JSON response is returned to ensure the frontend always receives valid data.
+  
+- **Default Port Usage:**  
+  The backend is set to run on port **8000** (enforced for time constraints) without additional configuration.
 
 ## Prerequisites
 
-Before running the project, make sure you have the following installed:
-
-- **Node.js & npm** → Required for the React frontend.
-- **Python 3.8+ & pip** → Required for the FastAPI backend.
-- **Uvicorn** → ASGI server to run FastAPI.
-
----
+- **Python 3.8+** and **pip**
+- **Uvicorn** (ASGI server for FastAPI)
+- An OpenAI API key for GPT‑4o
 
 ## Setup
 
-### Clone the Repository:
+1. **Clone the Repository**
 
-```bash
-git clone <repository-url>
-cd <repository-directory>
-```
+   ```bash
+   git clone https://github.com/jonechong/dlw-backend.git
+   cd dlw-backend
+Create the .env File
 
-### Configure the Backend:
+In the root directory, create a file named .env with the following content:
 
-Create a `.env` file in the root of the backend directory with the following content:
-
-```ini
+ini
+Copy
 OPENAI_API_KEY=your_openai_api_key_here
-```
+Replace your_openai_api_key_here with your actual GPT‑4o API key.
 
-> Replace `your_openai_api_key_here` with your actual GPT‑4o API key.
+Install Dependencies
 
-### Install Python Dependencies:
-
-```bash
+bash
+Copy
 pip install -r requirements.txt
-```
+Ensure that fastapi, uvicorn, and any other required packages are listed in requirements.txt.
 
-> Ensure that **FastAPI, Uvicorn, and any other required packages** are listed in your `requirements.txt`.
+Running the Server
+Start the backend server using Uvicorn on the default port 8000:
 
-### Install Node Dependencies for the Frontend:
-
-```bash
-cd frontend
-npm install
-```
-
----
-
-## Running the Server
-
-### Backend:
-Use Uvicorn to run the FastAPI backend on port **8000**:
-
-```bash
+bash
+Copy
 uvicorn app.main:app --reload
-```
+This command runs the FastAPI application with automatic reloading enabled.
 
-### Frontend:
-In a separate terminal, start the React app on port **3000**:
-
-```bash
-npm start
-```
-
----
-
-## Project Structure
-
-```bash
+Project Structure
+bash
+Copy
 ├── app
-│   ├── main.py              # FastAPI application entry point
-│   ├── get_food_info.py     # Module for analyzing food images using GPT‑4o
-│   └── get_personalized_recommendations.py  # Module for generating recommendations
-├── frontend                 # React application source code
-│   └── src
-│       └── pages
-│           └── MainPage.js  # Main React component with UI and API calls
-├── .env                     # Environment file with OPENAI_API_KEY (for backend)
-├── requirements.txt         # Python dependencies list
-└── README.md                # Project documentation (this file)
-```
+│   ├── main.py                             # FastAPI application entry point
+│   ├── get_food_info.py                    # Module for analyzing food images using GPT‑4o
+│   └── get_personalized_recommendations.py  # Module for generating personalized recommendations
+├── .env                                    # Environment file with OPENAI_API_KEY
+├── requirements.txt                        # Python dependencies list
+└── README.md                               # This documentation file
+Notes
+Ports:
+The backend runs on port 8000. The frontend is expected to run on port 3000.
 
----
+Environment Variables:
+Ensure the .env file is present with your OPENAI_API_KEY for GPT‑4o to work.
 
-## Notes
+Starting the Server:
+Use the Uvicorn command above to run the backend.
 
-### Ports:
-- The application uses **default ports**:
-  - **FastAPI runs on port 8000**.
-  - **React frontend runs on port 3000**.
-
-### Environment Variables:
-- The backend **requires** a `.env` file with your OpenAI API key (`OPENAI_API_KEY`) to function correctly.
-
-### Running the Application:
-- Once both servers are running, you can **interact with the React frontend** in your browser.
-- The frontend makes API calls to the **FastAPI backend on port 8000**.
-
----
-
+Frontend
+The React frontend is maintained separately in the DLW Frontend repository (https://github.com/jonechong/dlw-frontend).
