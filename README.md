@@ -1,85 +1,98 @@
-# DLW Backend
+# DLW-Backend
 
-This repository contains the backend code for the Food Recommendation App. The backend is built with [FastAPI](https://fastapi.tiangolo.com/) and leverages GPT‑4o to perform two primary functions:
+**DLW-Backend** is the FastAPI backend for the DLW project. It uses **GPT‑4o** to analyze food images and generate personalized food recommendations based on user nutritional intake and profiles. Although the project interacts with a React frontend (available separately), this repository focuses mainly on the backend functionality.
 
-1. **Food Image Analysis:**  
-   Analyzes food images to extract dish identification and nutritional information.
+---
 
-2. **Personalized Recommendations:**  
-   Generates personalized food recommendations based on the user's daily nutritional totals and profile.
+## Overview
 
-This backend is designed to work with a React frontend, which is maintained in a separate repository ([DLW Frontend](https://github.com/jonechong/dlw-frontend)). For this project, both the backend and frontend use default ports:
-- FastAPI backend runs on port **8000**.
-- React frontend runs on port **3000**.
+The backend performs two primary functions:
 
-## Features
+### **Image Analysis:**
+- Processes food images to identify the dish and extract nutritional information using **GPT‑4o**.
 
-- **Image Analysis:**  
-  Uses GPT‑4o to process an image and return a JSON object containing dish identification and nutrition details.
-  
-- **Personalized Recommendations:**  
-  Based on the user's current nutritional totals and profile, returns recommendations tailored to common local Singaporean dishes.  
-  - If the recommendation process fails, a placeholder JSON response is returned to ensure the frontend always receives valid data.
-  
-- **Default Port Usage:**  
-  The backend is set to run on port **8000** (enforced for time constraints) without additional configuration.
+### **Personalized Recommendations:**
+- Generates tailored recommendations based on the user's daily nutritional totals and profile details.
+- Enforces a **default meal schedule** (breakfast, lunch, dinner, or supper) based on the current time.
+
+Both functions use **GPT‑4o** and require an **OpenAI API key** to function.
+
+---
 
 ## Prerequisites
 
-- **Python 3.8+** and **pip**
-- **Uvicorn** (ASGI server for FastAPI)
-- An OpenAI API key for GPT‑4o
+Before running the project, make sure you have the following installed:
+
+- **Python 3.8+**
+- **pip**
+- **Uvicorn** (ASGI server)
+
+---
 
 ## Setup
 
-1. **Clone the Repository**
+### Clone the Repository:
 
-   ```bash
-   git clone https://github.com/jonechong/dlw-backend.git
-   cd dlw-backend
-Create the .env File
+```bash
+git clone https://github.com/jonechong/dlw-backend.git
+cd dlw-backend
+```
 
-In the root directory, create a file named .env with the following content:
+### Create a `.env` File:
 
-ini
-Copy
+In the project root, create a file named `.env` with the following content:
+
+```ini
 OPENAI_API_KEY=your_openai_api_key_here
-Replace your_openai_api_key_here with your actual GPT‑4o API key.
+```
 
-Install Dependencies
+> Replace `your_openai_api_key_here` with your actual GPT‑4o API key.
 
-bash
-Copy
+### Install Dependencies:
+
+Install the required Python packages using `pip`:
+
+```bash
 pip install -r requirements.txt
-Ensure that fastapi, uvicorn, and any other required packages are listed in requirements.txt.
+```
 
-Running the Server
-Start the backend server using Uvicorn on the default port 8000:
+---
 
-bash
-Copy
+## Running the Server
+
+To start the FastAPI backend on the default port (**8000**), run:
+
+```bash
 uvicorn app.main:app --reload
-This command runs the FastAPI application with automatic reloading enabled.
+```
 
-Project Structure
-bash
-Copy
+This command starts the server in **development mode** with hot reloading enabled.
+
+---
+
+## Project Structure
+
+```bash
 ├── app
-│   ├── main.py                             # FastAPI application entry point
-│   ├── get_food_info.py                    # Module for analyzing food images using GPT‑4o
-│   └── get_personalized_recommendations.py  # Module for generating personalized recommendations
-├── .env                                    # Environment file with OPENAI_API_KEY
-├── requirements.txt                        # Python dependencies list
-└── README.md                               # This documentation file
-Notes
-Ports:
-The backend runs on port 8000. The frontend is expected to run on port 3000.
+│   ├── main.py                              # FastAPI application entry point
+│   ├── get_food_info.py                     # Module to analyze food images via GPT‑4o
+│   └── get_personalized_recommendations.py  # Module to generate personalized recommendations
+├── .env                                     # Environment file (must include OPENAI_API_KEY)
+├── requirements.txt                         # List of Python dependencies
+└── README.md                                # This documentation file
+```
 
-Environment Variables:
-Ensure the .env file is present with your OPENAI_API_KEY for GPT‑4o to work.
+---
 
-Starting the Server:
-Use the Uvicorn command above to run the backend.
+## Notes
 
-Frontend
-The React frontend is maintained separately in the DLW Frontend repository (https://github.com/jonechong/dlw-frontend).
+### **Default Ports:**
+- The backend uses the **default port 8000**. This is enforced to meet time constraints—no custom configuration is provided in an environment file.
+
+### **Frontend Integration:**
+- Although this repository focuses on the backend, the React frontend (which interacts with this backend) is available at:  
+  **[DLW-Frontend](https://github.com/jonechong/dlw-frontend)**.
+
+### **Starting the Server:**
+- Use the command `uvicorn app.main:app --reload` to run the backend in development mode.
+
